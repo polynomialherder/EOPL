@@ -63,8 +63,7 @@
 
 (define remove-first
   (lambda (s los)
-    (if (null? los)
-        '()
+    (if (null? los) '()
         (if (= (car los) s) 
           (remove-first s (cdr los))
-          (remove-first s 
+          ( 

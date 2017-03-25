@@ -8,24 +8,34 @@
 \begin{document}
 
 \section*{Section 1.1}
-Inductive specification is a method for specifying a set of values. For example, let's consider a set $ S \subseteq \mathbb{N} $. We can define $S$ as follows: 
+
+We motivate the following discussion by noting that the syntax of a program 
+in a language is usually a nested or tree like structure. Recursion is then 
+an important technique in constructing and manipulating such structures.  
+
+Inductive specification is a method for specifying a set of values. For example,
+let's consider a set $ S \subseteq \mathbb{N} $. We can define $S$ as follows: 
+
 \begin{mydef} \textit{A natural number} $n \in S$ \textit{if and only if}  
 \begin{enumerate} 
   \item $n = 0$, or 
   \item $ n - 3 \in S $. 
 \end{enumerate}
+\textit{We call this definition the \textbf{top down definition} of $S$}
 \end{mydef} 
-We can write this definition another way: 
+
+
 \begin{mydef} \textit{Define the set $S$ to be the smallest set contained in $\mathbb{N}$ and satisfying the following two properties:} 
 \begin{enumerate}
   \item $0 \in S$, and 
   \item if $n \in S$, then $(n + 3) \in S$. 
 \end{enumerate}
-\end{mydef}
-And also...
-\begin{mydef} $$ \frac{}{0 \in S}$$ $$ \frac{n \in S}{(n + 3) \in S} $$ 
+\textit{We call this definition the \textbf{bottom up definition} of $S$}
 \end{mydef}
 
-The first definition is called the top down definition of $S$. We call it such because 
+
+\begin{mydef} $$ \frac{}{0 \in S}$$ $$ \frac{n \in S}{(n + 3) \in S} $$ 
+\textit{We call this definition the \textbf{rules of inference} of $S$}
+\end{mydef}
 
 \end{document}
