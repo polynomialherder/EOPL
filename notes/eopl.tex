@@ -5,6 +5,7 @@
 %\usepackage{parskip}
 \newtheorem{name}{Printed output}
 \newtheorem{mydef}{Definition}
+
 \begin{document}
 
 \section*{Section 1.1}
@@ -37,5 +38,16 @@ let's consider a set $ S \subseteq \mathbb{N} $. We can define $S$ as follows:
 \begin{mydef} $$ \frac{}{0 \in S}$$ $$ \frac{n \in S}{(n + 3) \in S} $$ 
 \textit{We call this definition the \textbf{rules of inference} of $S$}
 \end{mydef}
+
+\textbf{Exercise 1.3 [*]} Find a set $T$ of natural numbers such that $0 \in T$, and whenever $n \in T$, then $n + 3 \in T$, 
+                         but $T \neq S$, where $S$ is the set defined in definition 1.1.2. 
+
+\textbf{Solution 1.3} Let $T$ be the natural numbers. Then $0 \in T$ by definition of the natural numbers. We must show that $n + 3 \in T$ 
+                      whenever $n \in T$. 
+
+                      Let $A$ be the Peano system $(A_i, i, S_i)$ where $i \in \mathbb{N}$ is the distinguished element of $A$, and $S_i$ is 
+                      the successor function of $A$ defined by the rule 
+
+                                 $$ S(n) = n + 3, R(S) = \{ n | n \geq i \}$$
 
 \end{document}
