@@ -64,6 +64,60 @@
 (define remove-first
   (lambda (s los)
     (if (null? los) '()
-        (if (= (car los) s) 
-          (remove-first s (cdr los))
-          ( 
+        (if (eqv? (car los) s) 
+          (cdr los)
+          (cons (car los) (remove-first s (cdr los)))))))
+
+;; tests
+; (remove-first 'a '(a b c))
+; (remove-first 'b '(e f g))
+; (remove-first 'a4 '(c1 a4 c1 a4))
+; (remove-first 'x '())
+
+;; Ex. 1.8 [*]: In the definition of remove-first, if the last line 
+;; were replaced by (remove-first s (cdr los)), what function would 
+;; the resulting procedure compute? Give the contract, including the 
+;; usage statement, for the revised procedure. 
+
+;; Ans Ex. 1.8: Let lst be a List-of-Symbol. If lst is empty, then  
+;; (remove-first s lst) will return '(). Suppose lst is non-empty, and 
+;; that the first element of lst is equal to the target symbol s. 
+;; Then (remove-first s lst) will return the cdr of lst (which may 
+;; be empty). Suppose lst is non-empty, and that its first element
+;; is not equal to s. Then we will call (remove-first s) on the cdr  
+;; of lst. 
+;;
+;; Continually discarding the head of lst yields two possibilities. 
+;; The first possibility is that the element s is encountered. 
+;; In this case, the cdr of lst is returned without the first occurrence
+;; of s. 
+;;
+;; The second possibility is that the element s is never encountered. 
+;; In this case, the entire cdr of lst is returned. 
+;;
+;; More succinctly, we can write the contract for the updated function
+;; as follows: 
+
+;; remove-first-updated : Symbol x List-of-Symbols -> List-of-Symbols
+;; usage: (remove-first-updated s los) returns the cdr of los with the same 
+;;        elements arranged in the same order as cdr los, without the first 
+;;        occurrence of s.
+
+(define remove-first-updated
+  (lambda (s los)
+    (if (null? los) '()
+        (if (eqv? (car los) s) 
+          (cdr los)
+          (remove-first s (cdr los))))))
+
+(remove-first-updated 'a '(a b c d e f g))   ;; Expected: '(b c d e f g)
+(remove-first-updated 'a '(b c d e a f g h)) ;; Expected: '(c d e a f g h) 
+(remove-first-updated 'a '(b d e f g h i))   ;; Expected: '(d e f g h i)
+(remove-first-updated 'a '(a b c d a b c d)) ;; Expected: '(b c d a b c d)
+(remove-first-updated 'a '(d b c d a b c d)) ;; Expected: '(b c d b c d)
+(remove-first-updated 'a '())                ;; Expected: '()
+(remove-first-updated 'a '(d b c d b c d a)) ;; Expected: '()
+
+;; Ex. 1.9 [**] Define remove, which is like remove-first, except that
+;; it removes all occurrences of a given symbol from a list of symbols,
+;; not just the first.
