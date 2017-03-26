@@ -92,8 +92,9 @@
 ;; In this case, the cdr of lst is returned without the first occurrence
 ;; of s. 
 ;;
-;; The second possibility is that the element s is never encountered. 
-;; In this case, the entire cdr of lst is returned. 
+;; The second possibility is that the element s is never encountered, or 
+;; that it is encountered in the car of lst. In this case, the entire cdr of 
+;; lst is returned. 
 ;;
 ;; More succinctly, we can write the contract for the updated function
 ;; as follows: 
