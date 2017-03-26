@@ -111,14 +111,34 @@
           (cdr los)
           (remove-first s (cdr los))))))
 
-(remove-first-updated 'a '(a b c d e f g))   ;; Expected: '(b c d e f g)
-(remove-first-updated 'a '(b c d e a f g h)) ;; Expected: '(c d e a f g h) 
-(remove-first-updated 'a '(b d e f g h i))   ;; Expected: '(d e f g h i)
-(remove-first-updated 'a '(a b c d a b c d)) ;; Expected: '(b c d a b c d)
-(remove-first-updated 'a '(d b c d a b c d)) ;; Expected: '(b c d b c d)
-(remove-first-updated 'a '())                ;; Expected: '()
-(remove-first-updated 'a '(d b c d b c d a)) ;; Expected: '()
+;; tests 
+;; (remove-first-updated 'a '(a b c d e f g))   ;; Expected: '(b c d e f g)
+;; (remove-first-updated 'a '(b c d e a f g h)) ;; Expected: '(c d e a f g h) 
+;; (remove-first-updated 'a '(b d e f g h i))   ;; Expected: '(d e f g h i)
+;; (remove-first-updated 'a '(a b c d a b c d)) ;; Expected: '(b c d a b c d)
+;; (remove-first-updated 'a '(d b c d a b c d)) ;; Expected: '(b c d b c d)
+;; (remove-first-updated 'a '())                ;; Expected: '()
+;; (remove-first-updated 'a '(d b c d b c d a)) ;; Expected: '(b c d b c d)
 
 ;; Ex. 1.9 [**] Define remove, which is like remove-first, except that
 ;; it removes all occurrences of a given symbol from a list of symbols,
 ;; not just the first.
+
+;; remove : Symbol x List-of-Symbols -> List-of-Symbols
+;; usage: (remove-first-updated s los) = los with all instances of 
+;;        s removed. 
+
+(define remove
+  (lambda (s los)
+    (if (null? los) '()
+        (if (eqv? (car los) s) 
+          (remove s (cdr los))
+          (cons (car los) (remove s (cdr los)))))))
+
+(remove 'a '(a b c d e f g))   ;; Expected: '(b c d e f g)
+(remove 'a '(b c d e a f g h)) ;; Expected: '(b c d e f g h) 
+(remove 'a '(b d e f g h i))   ;; Expected: '(b d e f g h i)
+(remove 'a '(a b c d a b c d)) ;; Expected: '(b c d b c d)
+(remove 'a '(d b c d a b c d)) ;; Expected: '(d b c d b c d)
+(remove 'a '())                ;; Expected: '()
+(remove 'a '(d b c d b c d a)) ;; Expected: '(d b c d b c d)
