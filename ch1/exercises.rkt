@@ -64,9 +64,26 @@
             (cons (car slist) (swapper s1 s2 (cdr slist)))))))
 
 ; tests
-(swapper 'a 'd '(a b c d))
-(swapper 'a 'd '(a a a a d d d d ))
-(swapper 'a 'b '())
-(swapper '(1 2) '(a a) '((1 2) (1 2) (a a)))
-(swapper 'a 'a '(a b c d e a))
-(swapper '() 'a '(a b c d a a a))
+; (swapper 'a 'd '(a b c d))
+; (swapper 'a 'd '(a a a a d d d d ))
+; (swapper 'a 'b '())
+; (swapper '(1 2) '(a a) '((1 2) (1 2) (a a)))
+; (swapper 'a 'a '(a b c d e a))
+; (swapper '() 'a '(a b c d a a a))
+
+;; list-set : SchemeList x Int x SchemeVal -> SchemeList 
+;; usage: (list-set lst n x) = A scheme list where the element at
+;;                             index n (assuming zero based indexing)
+;;                             is replaced with the Scheme value x. 
+
+(define list-set
+  (lambda (lst n x)
+    (if (null? lst) '()
+        (if (zero? n) 
+            (cons x (cdr lst))
+            (cons (car lst) (list-set (cdr lst) (- n 1) x))))))
+
+; tests
+; (list-set '(a b c d) 2 '(1 2))
+; (list-set '(a b c d) 3 '(1 5 10))
+; (list-set '() 2 'a)
