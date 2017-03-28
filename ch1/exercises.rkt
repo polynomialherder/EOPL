@@ -87,3 +87,20 @@
 ; (list-set '(a b c d) 2 '(1 2))
 ; (list-set '(a b c d) 3 '(1 5 10))
 ; (list-set '() 2 'a)
+
+;; count-occurrences : SchemeVal x SchemeList -> Int
+;; (count-occurrences s slist) = The number of occurrences of s
+;;                               in slist.
+
+(define count-occurrences
+  (lambda (s slist)
+    (if (null? slist) 0
+        (if (equal? (car slist) s)
+            (+ 1 (count-occurrences s (cdr slist)))
+            (count-occurrences s (cdr slist))))))
+
+(count-occurrences 'a '(a b c d))
+(count-occurrences 'b '(b b b b))
+(count-occurrences 'b '(b))
+(count-occurrences 'c '())
+(count-occurrences '(1 2) '((1 2) (1 2) (1 2) (3 4) (5 6) (1 2)))
