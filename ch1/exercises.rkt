@@ -99,8 +99,38 @@
             (+ 1 (count-occurrences s (cdr slist)))
             (count-occurrences s (cdr slist))))))
 
-(count-occurrences 'a '(a b c d))
-(count-occurrences 'b '(b b b b))
-(count-occurrences 'b '(b))
-(count-occurrences 'c '())
-(count-occurrences '(1 2) '((1 2) (1 2) (1 2) (3 4) (5 6) (1 2)))
+; tests
+; (count-occurrences 'a '(a b c d))
+; (count-occurrences 'b '(b b b b))
+; (count-occurrences 'b '(b))
+; (count-occurrences 'c '())
+; (count-occurrences '(1 2) '((1 2) (1 2) (1 2) (3 4) (5 6) (1 2)))
+
+;; product : List-of-Symbols x List-of-Symbols -> List-of-2Lists
+;; usage: (cartesian-product los1 los2) = A list of 2-lists that represent 
+;;                                        the Cartesian product of los1 and
+;;                                        los2. The 2-lists may appear in 
+;;                                        any order.
+
+;; List-of-2Lists ::= '() | ( 2List . List-of-2Lists ) 
+;;         2List  ::= ( SchemeVal . SchemeVal ) 
+
+;; Recall that the Cartesian product of two sets A and B 
+;; is the set A x B = { (a, b) | a in A, b in B }. 
+;; Note if A or B is empty, then the Cartesian product
+;; is the empty set.
+
+(define cartesian-product
+  (lambda (los1 los2)
+    (if (null? los1) '()
+        (append (map (lambda (fix-lst-elem) (cons (car los1) fix-lst-elem)) los2)
+                (cartesian-product (cdr los1) los2)))))
+
+
+; tests
+; (cartesian-product '(1 2) '(a b c d e f g)) 
+; (cartesian-product '(a b c d e f g) '(1 2))
+; (cartesian-product '() '())
+; (cartesian-product '() '(a b c))
+; (cartesian-product '(a b c) '())
+
